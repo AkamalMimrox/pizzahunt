@@ -1,0 +1,98 @@
+{% load footer_tags %}
+{% with request_path=request.get_full_path %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+
+  <title> Feane{% block title %}{% endblock title %}</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+</head>
+<body class="sub_page">
+
+    <div class="hero_area">
+        
+        <div class="bg-box">
+          <img src="{% static 'images/hero-bg.jpg' %}" alt="">
+        </div>
+       
+        <!-- header section strats -->
+
+       {% include "header/header.html" %}
+    
+        <!-- end header section -->
+
+
+         <!-- Display messages -->
+   
+         {% include "messages/messages.html" %}
+       
+            <!-- End Display messages -->
+        <!-- slider section -->
+
+      {% if '/orders/' not in request_path and '/userprofile/' not in request_path and request_path != '/menu' and request_path != '/checkout/' and request_path != '/about' and request_path != '/cart' and '/detail' not in request_path and request_path != '/book' %}
+
+      {% include "slider/slider_section.html" %}
+
+      {% endif %}
+    
+      </div>
+
+    {% block content %}{% endblock content %}
+
+{% if  request_path != '/checkout/'  %}
+{% render_footer %}
+
+{% endif %}
+
+
+  <!-- jQery -->
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- custom js -->
+  <script src="{% static 'js/custom.js' %}"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT2AgfDN-C81MyWFd4R6kXkz_xoFJDrXY&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+</body>
+</html>
+
+{% endwith %}

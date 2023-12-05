@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %} | Cart {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+
+<script>
+  function increment(slug){
+    console.log("working",slug)
+    var detail_url = "{% url 'increment' slug='PLACEHOLDER' %}".replace('PLACEHOLDER', slug);
+    window.location.href = detail_url
+  }
+
+  function decrement(slug){
+    console.log("working",slug)
+    var detail_url = "{% url 'decrement' slug='PLACEHOLDER' %}".replace('PLACEHOLDER', slug);
+    window.location.href = detail_url
+  }
+</script>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .cart-section {
+      background-color: #fff;
+      padding: 50px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item img {
+      max-width: 100px;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333; /* Match Feane text color */
+    }
+
+    .cart-item-price {
+      color: #28a745;
+      font-size: 16px;
+    }
+
+    .quantity-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-margin{
+        margin-left: 20px;
+        
+        margin-right: 20px
+    }
+    .quantity-btn {
+        padding-left: 20px;
+        /* padding: 0px; */
+        padding-right: 20px;
+        /* color: black; */
+        background: black;
+        color: #ffff;
+        border-radius: 5px;
+    }
+
+    .cart-item-price{
+        margin-top: 15px;
+    }
+
+    .remove-btn {
+      color: #dc3545; /* Feane danger color */
+      cursor: pointer;
+    }
+
+    .cart-item-details{
+        margin-left: 10%;
+    }
+
+    .cart-total {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .cart-total-label {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333; /* Match Feane text color */
+    }
+
+    .cart-total-amount {
+      color: #28a745;
+      font-size: 20px;
+    }
+
+    .checkout-btn {
+      background-color: #ff5e00; /* Match Feane primary color */
+      color: #fff;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      margin-top: 20px;
+      border-radius: 8px;
+      border: none;
+      -transition: background-color 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      background-color: #e65100; /* Darker shade for hover effect */
+      color: #fff;
+    }
+    
+  </style>
+
+  <section class="cart-section">
+
+    {% if cart.items %}
+
+    <form action="{% url 'checkout' %}" method="post">
+      <div class="container">
+        {% csrf_token %}
+        <h2>Your Shopping Cart ({{cart.items|length}})</h2>
+  
+        {% for item  in cart.items  %}
+        <div class="cart-item">
+          <img src="{{item.product.image.url}}" alt="Product 1">
+          <div class="cart-item-details">
+            <div class="cart-item-title">{{item.product.name}}</div>
+            <div class="quantity-container">
+              <a class="quantity-btn" href="{% url 'decrement' slug=item.product.slug %}">-</a>
+              <span class="btn-margin">{{item.quantity}}</span>
+              <a class="quantity-btn" href="{% url 'increment' slug=item.product.slug %}">+</a>
+            </div>
+            <div class="cart-item-price">${{item.product.price}}</div>
+            <a href="{% url 'removeitem' slug=item.product.slug %}">
+            <div class="remove-btn">Remove</div>
+          </a>
+          </div>
+        </div>
+  
+        {% endfor %}
+  
+        {% comment %} <div class="cart-item">
+          <img src="{% static 'images/f2.png' %}" alt="Product 2">
+          <div class="cart-item-details">
+            <div class="cart-item-title">Tasty Burger</div>
+            <div class="quantity-container">
+              <button class="quantity-btn">-</button>
+              <span class="btn-margin">1</span>
+              <button class="quantity-btn">+</button>
+            </div>
+            <div class="cart-item-price">$15</div>
+            <div class="remove-btn">Remove</div>
+          </div>
+        </div> {% endcomment %}
+  
+        <div class="cart-total">
+          <div class="cart-total-label ">Total: <span class="cart-total-amount">${{cart.total}}</span> </div>
+         
+        </div>
+  
+        <a href = "{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+      </div>
+    </form>
+    {% else %}
+    <h2>Your Shopping Cart is Empty!</h2>
+    <a href="/">Continue Shopping</a>
+    {% endif %}
+  </section>
+
+{% endblock content %}

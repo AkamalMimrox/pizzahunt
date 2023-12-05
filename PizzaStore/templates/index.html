@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} | Home{% endblock title %}
+{% block content %}
+{% load static %}
+  
+
+  <!-- offer section -->
+{% include "offer/offer_section.html" %}
+
+  <!-- end offer section -->
+
+  <!-- food section -->
+
+  {% include "food/food_section.html" %}
+  <!-- end food section -->
+{% comment %} 
+  <!-- about section -->
+{% include "about/about_section.html" %}
+
+  <!-- end about section -->
+
+  <!-- book section -->
+ {% include "booking/table_book_section.html" %}
+  <!-- end book section --> {% endcomment %}
+
+  <!-- client section -->
+  {% include "client/client_section.html" %}
+
+  <!-- end client section -->
+{% endblock content %}
