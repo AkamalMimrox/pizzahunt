@@ -14,6 +14,8 @@ class UserAuthMaster(AbstractUser):
     is_staff=models.BooleanField(default=False)
     is_superuser=models.BooleanField(default=False)
     last_login=models.DateTimeField(auto_now_add=True)
+    forgot_token = models.CharField(editable=False,default="")
+    forgot_token_expiration = models.DateTimeField(null=True,blank=True,editable=False)
     
     def __str__(self):
         return self.username

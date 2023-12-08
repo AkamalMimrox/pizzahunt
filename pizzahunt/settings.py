@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5j_+==d2)owp$bp5)4ni7#uiob^h_%-(0w%oy_n7ulyhxsm9#k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     
-'127.0.0.1', '.herokuapp.com',
+
     
 ]
 
@@ -100,7 +100,7 @@ DATABASES['default'].update(db_from_env)
 
 WHITENOISE_USE_FINDERS = True
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
