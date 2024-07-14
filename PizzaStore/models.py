@@ -112,4 +112,4 @@ class OrderItem(models.Model):
     price = models.CharField(default=None,max_length=10000)
     
     def __str__(self):
-        return self.user
+        return self.user.username
